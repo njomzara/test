@@ -1,0 +1,33 @@
+/* Enter your custom styles here */
+.margin {
+	margin: 10px 0px;
+}
+.margin-top {
+	margin-top: 30px;
+}
+.txtInfo{
+	margin-top: 20%;
+	color: #9b9b9b;
+	font-size: 24px;
+	font-weight: normal;
+}
+.transText {
+	color: transparent;
+}
+.padding {
+	padding: 0 10px;
+}
+.buttonMargin {
+	margin-right: 10px;
+}
+.linkText {
+	color: #2EB7F3;
+	text-decoration: underline;
+}
+.boldedLabel {
+	font-weight: bold;
+	margin-right: 7px;
+}
+.textLine {
+	margin: 5px 0px;
+}

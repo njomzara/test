@@ -1,0 +1,178 @@
+<mvc:View controllerName="com.benoverviewbenefitOverview.controller.View1" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+						
+					<HBox>
+					
+						<VBox width="10%" ></VBox>
+						
+						<VBox width="80%" justifyContent="Start">
+							
+							<HBox class="margin margin-top" justifyContent="Center" >
+								<VBox width="25%" class="padding">
+									<Label text="Policy Number" labelFor="inptPolicyNo" class="boldedLabel" />
+									<Input id="inptPolicyNo" type="Number"
+										   value="402000002820"
+										   placeholder="Enter Policy Number ..." />
+								</VBox>
+								<VBox width="25%" class="textLineBig" >
+									<Label text="Illustratioin Date" labelFor="inptIllDate" class="boldedLabel"/>
+									<DatePicker id="inptIllDate" value="2025-01-01" valueFormat="yyyy-MM-dd" displayFormat="long" />
+								</VBox>
+								<VBox class="padding">
+									<Label text="Dividend Value" labelFor="inptDivValue" class="transText" />
+									<Button id="btnFetch" type="Emphasized" press="fetchList" text="Load data" icon="sap-icon://synchronize" tooltip="Fetch List" class="buttonMargin" />
+								</VBox>
+							</HBox>
+							
+							<HBox id="hBoxTxtInfo" class="margin" width="100%" justifyContent="Center" >
+								<items>
+									<Text textAlign="Center" text="Please select Policy Number and Illustration Date" class="txtInfo" />
+								</items>
+							</HBox>
+							
+							<HBox id="hBoxInsuredData" class="margin" visible="false" justifyContent="Center">
+								<VBox class="padding">
+									<Hbox class="textLine" >
+										<Text text="Insured person:" class="boldedLabel" />
+										<Text id = "txtAgentTxt" text = "{insuredModel>/d/NameTt}" />
+									</Hbox>
+									<Hbox class="textLine">
+										<Text text="Gender:" class="boldedLabel" />
+										<Text id = "txtAgentId" text = "{insuredModel>/d/Gender}" />
+									</Hbox>
+									<Hbox class="textLine">
+										<Text text="Issue Age:" class="boldedLabel" />
+										<Text id = "txtIssueAge" text = "{insuredModel>/d/IssueAge}" />
+									</Hbox>
+									<Hbox class="textLine">
+										<Text text="Billing Mode:" class="boldedLabel" />
+										<Text id = "txtBillingMode" text = "{insuredModel>/d/BillingMdTt}" />
+									</Hbox>
+								</VBox>
+							</HBox>
+							
+							<HBox id="hBoxProjectonSet" class="margin" visible="false" >
+								
+								<t:Table
+									id="tableProjection"
+									rows="{projectionModel>/d/results}"
+									selectionMode="None" 
+									visibleRowCountMode="Auto"
+									minAutoRowCount="20" >
+									<t:columns>
+										<t:Column width="5%" >
+											<Label text="Age" textAlign="Center" width="100%"/>
+											<t:template>
+												<Text text="{projectionModel>Age}" wrapping="false" width="100%" textAlign="Center" />
+											</t:template>
+										</t:Column>
+										<t:Column  width="5%" >
+											<Label text="Years" textAlign="Center" width="100%"/>
+											<t:template>
+												<Text text="{projectionModel>YearNr}" wrapping="false" width="100%" textAlign="Center" />
+											</t:template>
+										</t:Column>
+										<t:Column id="multiheader1">
+											<t:multiLabels>
+												<Label text="Guaranteed" textAlign="Center" width="100%" class="boldedLabel" />
+												<Label text="Contract Premium" textAlign="Center" width="100%" />
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>PesContractPremAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {showMeasure: false,decimalSeparator : ',', groupingSeparator : '.'} }"  />
+											</t:template>
+										</t:Column>
+										<t:Column>
+											<t:multiLabels>
+												<Label text="Guaranteed" textAlign="Center" width="100%"/>
+												<Label text="Surrender Value" textAlign="Center" width="100%"/>
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>PesSurrenderAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+										<t:Column>
+											<t:multiLabels>
+												<Label text="Guaranteed" textAlign="Center" width="100%"/>
+												<Label text="Death Benefit" textAlign="Center" width="100%"/>
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>PesDeathBnfAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+										<t:Column id="multiheader2" >
+											<t:multiLabels>
+												<Label text="Non - Guaranteed" textAlign="Center" width="100%" class="boldedLabel" />
+												<Label text="Contract Premium" textAlign="Center" width="100%" />
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>OptContractPremAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+										<t:Column>
+											<t:multiLabels>
+												<Label text="Non - Guaranteed" textAlign="Center" width="100%"/>
+												<Label text="Surrender Value" textAlign="Center" width="100%"/>
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>OptSurrenderAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+										<t:Column>
+											<t:multiLabels>
+												<Label text="Non - Guaranteed" textAlign="Center" width="100%"/>
+												<Label text="Death Benefit" textAlign="Center" width="100%"/>
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																		parts:[{path:'projectionModel>OptDeathBnfAm'}],
+																		type: 'sap.ui.model.type.Currency',
+																		formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+										<t:Column>
+											<t:multiLabels>
+												<Label text="Non - Guaranteed" textAlign="Center" width="100%"/>
+												<Label text="Dividend" textAlign="Center" width="100%"/>
+											</t:multiLabels>
+											<t:template>
+												<ObjectNumber textAlign="Right" unit="USD" number="{
+																	parts:[{path:'projectionModel>OptDividendAm'}],
+																	type: 'sap.ui.model.type.Currency',
+																	formatOptions: {maxFractionDigits : 0} }" />
+											</t:template>
+										</t:Column>
+									</t:columns>
+								</t:Table>
+							
+							</HBox>	
+							
+						</VBox>
+					
+						<VBox width="10%" ></VBox>
+						
+					</HBox>
+					
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
